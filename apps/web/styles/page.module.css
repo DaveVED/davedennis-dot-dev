@@ -1,7 +1,25 @@
-.customStyle {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #c32e2e;
-  border-radius: 5px;
-  text-align: center;
+@keyframes slide-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-right {
+  animation: slide-right 2s forwards;
+}
+
+.animate-slide-left {
+  animation: slide-left 2s forwards;
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "../styles/globals.css";
+import "../../styles/globals.css";
+import "@repo/ui/styles.css";
 
 export const metadata: Metadata = {
   title: "Dave Dennis",
@@ -13,9 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <body className="h-full w-full overflow-y-hidden"> {children} </body>
     </html>
   );
 }
