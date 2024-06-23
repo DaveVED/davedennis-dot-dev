@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes move-left-to-right {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes move-right-to-left {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  .ui-animate-move-left-to-right {
+    animation: move-left-to-right 2s forwards;
+  }
+  
+  .ui-animate-move-right-to-left {
+    animation: move-right-to-left 2s forwards;
+  }
+  

@@ -1,10 +1,17 @@
 import type { Config } from "tailwindcss";
-import sharedConfig from "@repo/tailwind-config";
 
-const config: Pick<Config, "prefix" | "presets" | "content"> = {
-  content: ["./src/**/*.tsx"],
+const config = {
+  content: ["./src/**/*.{ts,tsx}", "../../packages/ui/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {},
+      fontFamily: {},
+      keyframes: {},
+      animation: {},
+    },
+  },
   prefix: "ui-",
-  presets: [sharedConfig],
-};
+  plugins: [],
+} satisfies Config;
 
 export default config;

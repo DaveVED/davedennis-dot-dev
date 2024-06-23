@@ -8,7 +8,9 @@ const nextConfig = {
          * https://nextjs.org/docs/app/api-reference/next-config-js/images#example-loader-configuration
          */
         unoptimized: true,
-    }
+    },
+    reactStrictMode: true,
+    transpilePackages: ["@repo/ui"],
 };
 
 export default nextConfig;

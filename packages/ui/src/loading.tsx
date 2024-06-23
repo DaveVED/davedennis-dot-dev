@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 interface LoadingProps {
   children?: ReactNode;
@@ -9,42 +9,44 @@ interface LoadingProps {
 }
 
 const sizeMap: { [key: number]: string } = {
-  1: 'w-1 h-1',
-  2: 'w-2 h-2',
-  3: 'w-3 h-3',
-  4: 'w-4 h-4',
-  5: 'w-5 h-5',
-  6: 'w-6 h-6',
-  8: 'w-8 h-8',
-  10: 'w-10 h-10',
-  12: 'w-12 h-12',
-  16: 'w-16 h-16',
-  20: 'w-20 h-20',
-  24: 'w-24 h-24',
-  32: 'w-32 h-32',
-  40: 'w-40 h-40',
-  48: 'w-48 h-48',
-  56: 'w-56 h-56',
-  64: 'w-64 h-64',
+  1: "ui-w-1 ui-h-1",
+  2: "ui-w-2 ui-h-2",
+  3: "ui-w-3 ui-h-3",
+  4: "ui-w-4 ui-h-4",
+  5: "ui-w-5 ui-h-5",
+  6: "ui-w-6 ui-h-6",
+  8: "ui-w-8 ui-h-8",
+  10: "ui-w-10 ui-h-10",
+  12: "ui-w-12 ui-h-12",
+  16: "ui-w-16 ui-h-16",
+  20: "ui-w-20 ui-h-20",
+  24: "ui-w-24 ui-h-24",
+  32: "ui-w-32 ui-h-32",
+  40: "ui-w-40 ui-h-40",
+  48: "ui-w-48 ui-h-48",
+  56: "ui-w-56 ui-h-56",
+  64: "ui-w-64 ui-h-64",
 };
 
 const getSizeClass = (size: number): string => {
-  return sizeMap[size] || sizeMap[12] as string;
+  return sizeMap[size] || (sizeMap[12] as string);
 };
 
 export const Loading = ({
   children,
-  spinnerColor = "border-t-purple-500 border-r-transparent",
-  textColor = "text-white",
+  spinnerColor = "ui-border-t-purple-500 ui-border-r-transparent",
+  textColor = "ui-text-black",
   spinnerSize = 12,
   className,
 }: LoadingProps) => {
   const spinnerSizeClass = getSizeClass(spinnerSize);
 
   return (
-    <div className={`flex flex-col ${className}`}>
-      <div className={`animate-spin inline-block border-4 rounded-full ${spinnerSizeClass} ${spinnerColor}`}></div>
-      <h1 className={`mt-4 text-4xl font-bold ${textColor}`}>
+    <div className={`ui-flex ui-flex-col ${className}`}>
+      <div
+        className={`ui-animate-spin ui-inline-block ui-border-4 ui-rounded-full ${spinnerSizeClass} ${spinnerColor}`}
+      ></div>
+      <h1 className={`ui-mt-4 ui-text-4xl ui-font-bold ${textColor}`}>
         {children ?? "Loading..."}
       </h1>
     </div>
