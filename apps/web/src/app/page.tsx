@@ -9,7 +9,7 @@ export default async function LandingPage() {
         <div className="flex h-8 items-center justify-center gap-5">
           <AnimatedHeaderWithLines lineColor="bg-purple-500">
             Dave Dennis
-          </AnimatedHeaderWithLines>{" "}
+          </AnimatedHeaderWithLines>
         </div>
       </div>
     </main>
