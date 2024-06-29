@@ -11,6 +11,30 @@ const nextConfig = {
     },
     reactStrictMode: true,
     transpilePackages: ["@repo/ui"],
+    async redirects() {
+        return [
+          {
+            source: "/(x|twitter)",
+            destination: "https://x.com/DaveVED_",
+            permanent: false,
+          },
+          {
+            source: "/twitch",
+            destination: "https://www.twitch.tv/daveved",
+            permanent: false,
+          },
+          {
+            source: "/discord",
+            destination: "https://discordapp.com/users/daveved/",
+            permanent: false,
+          },
+          {
+            source: "/linkedin",
+            destination: "https://www.linkedin.com/in/davedennis93/",
+            permanent: false,
+          },
+        ];
+      },
 };
 
 export default nextConfig;

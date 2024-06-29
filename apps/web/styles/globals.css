@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes move-right {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes move-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: 100%;
+    }
+  }
+  
+  @keyframes move-left {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes move-up {
+    from {
+      height: 0;
+    }
+    to {
+      height: 100%;
+    }
+  }
+  
+  .animate-move-right {
+    animation: move-right 4s linear infinite;
+  }
+  
+  .animate-move-down {
+    animation: move-down 4s linear infinite;
+  }
+  
+  .animate-move-left {
+    animation: move-left 4s linear infinite;
+  }
+  
+  .animate-move-up {
+    animation: move-up 4s linear infinite;
+  }
+  
+  
