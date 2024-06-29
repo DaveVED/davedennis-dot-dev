@@ -10,10 +10,17 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.4",
     "@repo/ui": "workspace:*",
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/mdx": "^2.0.13",
     "clsx": "^2.1.1",
+    "fs": "0.0.1-security",
     "lucide-react": "^0.302.0",
     "next": "15.0.0-rc.0",
+    "next-mdx-remote": "^5.0.0",
     "react": "19.0.0-rc-f994737d14-20240522",
     "react-dom": "19.0.0-rc-f994737d14-20240522"
   },

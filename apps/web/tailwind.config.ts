@@ -1,16 +1,10 @@
+// tailwind.config.ts
 import type { Config } from "tailwindcss";
 
-const config = {
-  content: ["./src/**/*.{ts,tsx}"],
-  theme: {
-    extend: {
-      colors: {},
-      fontFamily: {},
-      keyframes: {},
-      animation: {},
-    },
-  },
-  plugins: [],
-} satisfies Config;
+const config: Config = {
+  content: ["./src/**/*.{ts,tsx,mdx}"],
+  theme: {},
+  plugins: [require("@tailwindcss/typography")],
+};
 
 export default config;
