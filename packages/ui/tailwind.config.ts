@@ -1,13 +1,9 @@
 import type { Config } from "tailwindcss";
 
-const config = {
-  content: ["./src/**/*.{ts,tsx}"],
+const config: Config = {
+  content: ["./src/**/*.{ts,tsx,mdx,md,js}"],
   theme: {
     extend: {
-      colors: {},
-      fontFamily: {},
-      keyframes: {},
-      animation: {},
       typography: {
         DEFAULT: {
           css: {
@@ -54,6 +50,20 @@ const config = {
               marginBottom: "1.5rem",
               paddingLeft: "1.5rem",
             },
+            table: {
+              width: "100%",
+              borderCollapse: "collapse",
+              marginBottom: "1.5rem",
+            },
+            th: {
+              textAlign: "left",
+              borderBottom: "2px solid #ddd",
+              padding: "0.5rem",
+            },
+            td: {
+              padding: "0.5rem",
+              borderBottom: "1px solid #ddd",
+            },
           },
         },
       },
@@ -61,6 +71,6 @@ const config = {
   },
   prefix: "ui-",
   plugins: [require("@tailwindcss/typography")],
-} satisfies Config;
+};
 
 export default config;

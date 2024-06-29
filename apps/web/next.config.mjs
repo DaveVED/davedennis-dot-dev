@@ -1,40 +1,44 @@
-import withMDX from "@next/mdx";
+import withMDX from '@next/mdx';
+import remarkGfm from 'remark-gfm';
 
 const nextConfig = withMDX({
   extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm],
+  },
 })({
-  output: "export",
+  output: 'export',
   images: {
     unoptimized: true,
   },
   reactStrictMode: true,
-  transpilePackages: ["@repo/ui", "next-mdx-remote"],
-  pageExtensions: ["ts", "tsx", "md", "mdx", "js"],
+  transpilePackages: ['@repo/ui', 'next-mdx-remote'],
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx', 'js'],
   async redirects() {
     return [
       {
-        source: "/(x|twitter)",
-        destination: "https://x.com/DaveVED_",
+        source: '/(x|twitter)',
+        destination: 'https://x.com/DaveVED_',
         permanent: false,
       },
       {
-        source: "/twitch",
-        destination: "https://www.twitch.tv/daveved",
+        source: '/twitch',
+        destination: 'https://www.twitch.tv/daveved',
         permanent: false,
       },
       {
-        source: "/discord",
-        destination: "https://discordapp.com/users/daveved/",
+        source: '/discord',
+        destination: 'https://discordapp.com/users/daveved/',
         permanent: false,
       },
       {
-        source: "/linkedin",
-        destination: "https://www.linkedin.com/in/davedennis93/",
+        source: '/linkedin',
+        destination: 'https://www.linkedin.com/in/davedennis93/',
         permanent: false,
       },
       {
-        source: "/github",
-        destination: "https://github.com/DaveVED/",
+        source: '/github',
+        destination: 'https://github.com/DaveVED/',
         permanent: false,
       },
     ];
