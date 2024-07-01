@@ -1,19 +1,40 @@
 import withMDX from '@next/mdx';
 import remarkGfm from 'remark-gfm';
 
-const nextConfig = withMDX({
+const mdxConfig = {
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkGfm],
   },
-})({
-  output: 'export',
-  images: {
-    unoptimized: true,
-  },
+};
+
+const nextConfig = {
+  /**
+   * For static site I *must* have export set. When export is set you
+   * can run pnpm build, and it will create the out folder for you.
+   * Moving away from this for now.
+   * 
+   * output: 'export',
+   */
+  
+  /**
+   * When we use static exports and we want to use the next <Image /> tag
+   * Next.js image optimization feature will not work because it relies on 
+   * server-side processing. Setting unoptimized: true allows you to 
+   * bypass this limitation and use the images as they are.
+   * images: {
+   *   unoptimized: true,
+   * },
+   */
+
   reactStrictMode: true,
   transpilePackages: ['@repo/ui', 'next-mdx-remote'],
   pageExtensions: ['ts', 'tsx', 'md', 'mdx', 'js'],
+  /**
+   * Allows us to use /source instead of a fully qualified domain.
+   * For example <a href="/twitter" target="_blank"> would 
+   * route to the source here.
+   */
   async redirects() {
     return [
       {
@@ -43,6 +64,6 @@ const nextConfig = withMDX({
       },
     ];
   },
-});
+};
 
-export default nextConfig;
+export default withMDX(mdxConfig)(nextConfig);

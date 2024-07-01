@@ -1,5 +1,5 @@
-import {MDXWrapper} from "@repo/ui/mdx-wrapper";
-import {PostLayout} from "@repo/ui/post-layout";
+import { MDXWrapper } from "@repo/ui/mdx-wrapper";
+import { PostLayout } from "@repo/ui/post-layout";
 import { fetchGitMdxData } from "@repo/ui/utili";
 
 type Post = {
@@ -43,4 +43,3 @@ export default async function Page({ params }: { params: { slug: string } }) {
     </PostLayout>
   );
 }
-
