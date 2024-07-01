@@ -29,17 +29,8 @@ export default function LandingPage() {
       </section>
 
       <section id="blog-section" className="h-screen relative">
-        <main className="relative min-h-screen flex flex-col justify-center bg-slate-50 overflow-hidden">
-          <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
-            <div className="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
-              <div className="w-full max-w-3xl mx-auto">
-                <div className="-my-6">
-                  <Posts />
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
+      <Posts />
+
       </section>
     </main>
   );
