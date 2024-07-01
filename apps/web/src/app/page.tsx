@@ -29,8 +29,11 @@ export default function LandingPage() {
       </section>
 
       <section id="blog-section" className="h-screen relative">
-      <Posts />
-
+        <div className="ui-relative ui-min-h-screen ui-flex ui-flex-col ui-justify-center ui-bg-slate-50 ui-overflow-hidden">
+          <SimpleBackground videoPath={"/dots-loop.mp4"} />
+          <Posts />
+          <Scroll direction="UP" scrollSection="blog-section"/>
+        </div>
       </section>
     </main>
   );
