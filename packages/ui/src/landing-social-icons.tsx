@@ -1,6 +1,6 @@
 import { Twitter, Github, Twitch, Linkedin } from "lucide-react";
 
-export const SocialIcons = () => {
+export const LandingSocialIcons = () => {
   return (
     <div className="mt-4 flex gap-4">
     <a href="/twitter" target="_blank" rel="noopener noreferrer">

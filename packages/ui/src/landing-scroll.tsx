@@ -2,12 +2,12 @@
 
 type ScrollDirection = "UP" | "DOWN";
 
-interface ScrollProps {
+interface LandingScrollProps {
   direction: ScrollDirection;
   scrollSection: string;
 }
 
-export const Scroll = ({ direction, scrollSection }: ScrollProps) => {
+export const LandingScroll = ({ direction, scrollSection }: LandingScrollProps) => {
   const scrollPath = direction === "DOWN" ? "M19 9l-7 7-7-7" : "M5 15l7-7 7 7";
   
   const scrollToSection = (sectionId: string) => {

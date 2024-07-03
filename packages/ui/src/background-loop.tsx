@@ -1,8 +1,8 @@
-interface SimpleBackgroundProps {
+interface BackgroundLoopProps {
   videoPath: string;
 }
 
-export const SimpleBackground = ({ videoPath }: SimpleBackgroundProps) => {
+export const BackgroundLoop = ({ videoPath }: BackgroundLoopProps) => {
   return (
     <div className="ui-absolute ui-inset-0 ui-overflow-hidden">
       <video

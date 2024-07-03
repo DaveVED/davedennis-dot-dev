@@ -1,8 +1,7 @@
-// tailwind.config.ts for apps/web
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./src/**/*.{ts,tsx,mdx,md,js}", "../../packages/ui/src/**/*.{ts,tsx,mdx,md,js}"], // Add the path to the UI package
+  content: ["./src/**/*.{ts,tsx,mdx,md,js}"],
   theme: {
     extend: {
       fontFamily: {

@@ -5,19 +5,15 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "type": "module",
   "exports": {
-    "./brandmark": "./src/brandmark.tsx",
-    "./simple-background": "./src/simple-background.tsx",
-    "./animated-title-with-lines": "./src/animated-title-with-lines.tsx",
     "./styles.css": "./dist/index.css",
+    "./background-loop": "./src/background-loop.tsx",
     "./loading": "./src/loading.tsx",
-    "./post-layout": "./src/post/layout.tsx",
-    "./mdx-wrapper": "./src/post/mdx-wrapper.tsx",
-    "./utili": "./src/util.ts",
-    "./profile-social-icons": "./src/profile/social-icons.tsx",
-    "./profile-scroll": "./src/profile/scroll.tsx",
-    "./posts-hooks": "./src/hooks/posts.ts",
-    "./profile-posts": "./src/profile/posts.tsx"
+    "./blogpost-layout": "./src/blog-post-layout.tsx",
+    "./mdx-wrapper": "./src/mdx-wrapper.tsx",
+    "./landing-social-icons": "./src/landing-social-icons.tsx",
+    "./landing-scroll": "./src/landing-scroll.tsx"
   },
   "scripts": {
     "build": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
