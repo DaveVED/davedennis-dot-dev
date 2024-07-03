@@ -1,6 +1,8 @@
 import { MDXWrapper } from "@repo/ui/mdx-wrapper";
-import { PostLayout } from "@repo/ui/post-layout";
-import { fetchGitMdxData } from "@repo/ui/utili";
+import { BlogPostLayout } from "@repo/ui/blogpost-layout";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
 
 type Post = {
   content: string;
@@ -8,6 +10,22 @@ type Post = {
   path: string;
   title: string;
 };
+
+export async function fetchGitMdxData(
+  slug: string,
+): Promise<MDXRemoteSerializeResult> {
+  const res = await fetch(
+    `https://raw.githubusercontent.com/DaveVED/my-posts/master/posts/${slug}.mdx`,
+  );
+  const mdxText = await res.text();
+  const mdxSource = await serialize(mdxText, {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+    },
+  });
+  return mdxSource;
+}
+
 
 export async function generateStaticParams() {
   const response = await fetch(
@@ -36,10 +54,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const mdxSource = await fetchGitMdxData(slug);
 
   return (
-    <PostLayout>
+    <BlogPostLayout>
       <article className="prose prose-lg prose-gray text-gray-800">
         <MDXWrapper mdxSource={mdxSource} />
       </article>
-    </PostLayout>
+    </BlogPostLayout>
   );
 }
