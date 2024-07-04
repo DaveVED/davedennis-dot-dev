@@ -5,7 +5,6 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "type": "module",
   "exports": {
     "./styles.css": "./dist/index.css",
     "./background-loop": "./src/background-loop.tsx",
