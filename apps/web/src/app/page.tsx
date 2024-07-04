@@ -5,17 +5,17 @@ import Image from "next/image";
 import DaveAvatar from "../../public/dave.jpg";
 import { MoreBlogPosts, BlogPost } from "@repo/ui/more-blog-posts";
 
-export const getBlogPostFeed = async () => {
+async function fetchBlogPostFeed() {
   const response = await fetch(
     "https://raw.githubusercontent.com/DaveVED/my-posts/main/feed.json",
   );
   const blogPosts: BlogPost[] = await response.json();
 
   return blogPosts;
-};
+}
 
 export default async function LandingPage() {
-  const blogPosts = await getBlogPostFeed();
+  const blogPosts = await fetchBlogPostFeed();
 
   return (
     <main className="relative h-screen overflow-y-auto" id="top">

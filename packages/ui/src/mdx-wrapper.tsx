@@ -7,9 +7,7 @@ interface MDXWrapperProps {
 }
 
 const components = {
-  table: (props: React.HTMLProps<HTMLTableElement>) => (
-    <table className="ui-table-auto ui-w-full" {...props} />
-  ),
+
 };
 
 export const MDXWrapper = ({ mdxSource }: MDXWrapperProps) => {
