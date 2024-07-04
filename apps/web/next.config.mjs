@@ -1,10 +1,12 @@
 import withMDX from '@next/mdx';
 import remarkGfm from 'remark-gfm';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 
 const mdxConfig = {
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter],
   },
 };
 
@@ -33,9 +35,7 @@ const nextConfig = {
   images: {
     domains: ["github.com", "raw.githubusercontent.com"],
   },
-  experimental: {
-    outputStandalone: true,
-  },
+  output: "standalone",
   /**
    * Allows us to use /source instead of a fully qualified domain.
    * For example <a href="/twitter" target="_blank"> would 

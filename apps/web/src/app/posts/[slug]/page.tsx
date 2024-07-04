@@ -3,6 +3,8 @@ import { BlogPostLayout } from "@repo/ui/blogpost-layout";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 async function fetchGitMdxData(
   slug: string,
@@ -13,7 +15,7 @@ async function fetchGitMdxData(
   const mdxText = await res.text();
   const mdxSource = await serialize(mdxText, {
     mdxOptions: {
-      remarkPlugins: [remarkGfm],
+      remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter],
     },
   });
   return mdxSource;

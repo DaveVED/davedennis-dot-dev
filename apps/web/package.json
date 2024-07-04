@@ -25,7 +25,9 @@
     "next-mdx-remote": "^5.0.0",
     "react": "19.0.0-rc-f994737d14-20240522",
     "react-dom": "19.0.0-rc-f994737d14-20240522",
-    "remark-gfm": "^4.0.0"
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-mdx-frontmatter": "^5.0.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
