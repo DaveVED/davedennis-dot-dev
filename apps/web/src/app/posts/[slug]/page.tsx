@@ -26,7 +26,6 @@ export async function fetchGitMdxData(
   return mdxSource;
 }
 
-
 export async function generateStaticParams() {
   const response = await fetch(
     "https://raw.githubusercontent.com/DaveVED/my-posts/master/feed.json",

@@ -7,13 +7,16 @@ interface LandingScrollProps {
   scrollSection: string;
 }
 
-export const LandingScroll = ({ direction, scrollSection }: LandingScrollProps) => {
+export const LandingScroll = ({
+  direction,
+  scrollSection,
+}: LandingScrollProps) => {
   const scrollPath = direction === "DOWN" ? "M19 9l-7 7-7-7" : "M5 15l7-7 7 7";
-  
+
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 

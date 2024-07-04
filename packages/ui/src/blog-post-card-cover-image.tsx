@@ -8,14 +8,21 @@ interface BlogPostCardCoverImageProps {
   slug?: string;
 }
 
-export const BlogPostCardCoverImage = ({ title, src, slug }: BlogPostCardCoverImageProps) => {
+export const BlogPostCardCoverImage = ({
+  title,
+  src,
+  slug,
+}: BlogPostCardCoverImageProps) => {
   const image = (
     <Image
       src={src}
       alt={`Cover Image for ${title}`}
-      className={cn("ui-w-full ui-max-w-[800px] ui-max-h-[200px] ui-rounded-md ui-object-cover", {
-        "ui-hover:shadow-lg ui-transition-shadow ui-duration-200": slug,
-      })}
+      className={cn(
+        "ui-w-full ui-max-w-[800px] ui-max-h-[200px] ui-rounded-md ui-object-cover",
+        {
+          "ui-hover:shadow-lg ui-transition-shadow ui-duration-200": slug,
+        },
+      )}
       layout="responsive"
       width={1300}
       height={630}

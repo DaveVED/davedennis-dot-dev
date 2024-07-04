@@ -5,7 +5,6 @@ import Image from "next/image";
 import DaveAvatar from "../../public/dave.jpg";
 import { MoreBlogPosts, BlogPost } from "@repo/ui/more-blog-posts";
 
-
 export const getBlogPostFeed = async () => {
   const response = await fetch(
     "https://raw.githubusercontent.com/DaveVED/my-posts/main/feed.json",
@@ -13,8 +12,7 @@ export const getBlogPostFeed = async () => {
   const blogPosts: BlogPost[] = await response.json();
 
   return blogPosts;
-
-}
+};
 
 export default async function LandingPage() {
   const blogPosts = await getBlogPostFeed();
@@ -42,7 +40,8 @@ export default async function LandingPage() {
       </section>
 
       <section id="blog-section" className="relative py-20 bg-gray-50">
-          {blogPosts.length > 0 && <MoreBlogPosts posts={blogPosts} />}
+        {blogPosts.length > 0 && <MoreBlogPosts posts={blogPosts} />}
+        <LandingScroll direction="UP" scrollSection="introduction-section" />
       </section>
     </main>
   );

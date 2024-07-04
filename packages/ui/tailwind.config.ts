@@ -5,8 +5,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        caveat: ['Caveat', 'cursive'],
+        inter: ["Inter", "sans-serif"],
+        caveat: ["Caveat", "cursive"],
       },
     },
   },
