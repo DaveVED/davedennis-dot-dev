@@ -30,6 +30,9 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@repo/ui', 'next-mdx-remote'],
   pageExtensions: ['ts', 'tsx', 'md', 'mdx', 'js'],
+  images: {
+    domains: ["github.com", "raw.githubusercontent.com"],
+  },
   /**
    * Allows us to use /source instead of a fully qualified domain.
    * For example <a href="/twitter" target="_blank"> would 

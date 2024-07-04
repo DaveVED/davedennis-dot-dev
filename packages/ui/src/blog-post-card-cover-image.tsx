@@ -13,8 +13,8 @@ export const BlogPostCardCoverImage = ({ title, src, slug }: BlogPostCardCoverIm
     <Image
       src={src}
       alt={`Cover Image for ${title}`}
-      className={cn("w-full max-w-[800px] max-h-[200px] rounded-md object-cover", {
-        "hover:shadow-lg transition-shadow duration-200": slug,
+      className={cn("ui-w-full ui-max-w-[800px] ui-max-h-[200px] ui-rounded-md ui-object-cover", {
+        "ui-hover:shadow-lg ui-transition-shadow ui-duration-200": slug,
       })}
       layout="responsive"
       width={1300}
@@ -23,7 +23,7 @@ export const BlogPostCardCoverImage = ({ title, src, slug }: BlogPostCardCoverIm
   );
 
   return (
-    <div className="sm:mx-0">
+    <div className="ui-sm:ui-mx-0">
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           {image}

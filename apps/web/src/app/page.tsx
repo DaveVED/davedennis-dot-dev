@@ -3,9 +3,21 @@ import { LandingSocialIcons } from "@repo/ui/landing-social-icons";
 import { LandingScroll } from "@repo/ui/landing-scroll";
 import Image from "next/image";
 import DaveAvatar from "../../public/dave.jpg";
+import { MoreBlogPosts, BlogPost } from "@repo/ui/more-blog-posts";
 
-export default function LandingPage() {
-  const hardcodedDate = "2023-07-01T00:00:00Z";
+
+export const getBlogPostFeed = async () => {
+  const response = await fetch(
+    "https://raw.githubusercontent.com/DaveVED/my-posts/main/feed.json",
+  );
+  const blogPosts: BlogPost[] = await response.json();
+
+  return blogPosts;
+
+}
+
+export default async function LandingPage() {
+  const blogPosts = await getBlogPostFeed();
 
   return (
     <main className="relative h-screen overflow-y-auto" id="top">
@@ -30,50 +42,8 @@ export default function LandingPage() {
       </section>
 
       <section id="blog-section" className="relative py-20 bg-gray-50">
-        <h2 className="mb-4 text-5xl md:text-7xl font-bold tracking-tighter leading-tight text-center">
-          Blog Posts
-        </h2>
-        <h3 className="mb-8 text-2xl md:text-4xl font-light text-center text-gray-600">
-          I like to write sometimes
-        </h3>
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-5">
-          <StoryCard
-            slug="next-js-cloudfront-analytics"
-            title="Title"
-            src="/dave.jpg"
-            date={hardcodedDate}
-            excerpt="Some excerpt"
-            author={{ name: "test", picture: "/dave.jpg" }}
-          />
-          <StoryCard
-            slug="next-js-cloudfront-analytics"
-            title="Title"
-            src="/dave.jpg"
-            date={hardcodedDate}
-            excerpt="Some excerpt"
-            author={{ name: "test", picture: "/dave.jpg" }}
-          />
-          <StoryCard
-            slug="next-js-cloudfront-analytics"
-            title="Title"
-            src="/dave.jpg"
-            date={hardcodedDate}
-            excerpt="Some excerpt"
-            author={{ name: "test", picture: "/dave.jpg" }}
-          />
-        </div>
+          {blogPosts.length > 0 && <MoreBlogPosts posts={blogPosts} />}
       </section>
     </main>
   );
 }
-type AvatarProps = {
-  name: string;
-  picture: string;
-};
-
-const Avatar = ({ name, picture }: AvatarProps) => (
-  <div className="flex items-center mt-4">
-    <Image src={picture} className="w-10 h-10 rounded-full mr-3" alt={name} width={40} height={40} />
-    <div className="text-lg font-medium text-gray-700">{name}</div>
-  </div>
-);

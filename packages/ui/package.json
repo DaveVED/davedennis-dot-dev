@@ -13,7 +13,9 @@
     "./blogpost-layout": "./src/blog-post-layout.tsx",
     "./mdx-wrapper": "./src/mdx-wrapper.tsx",
     "./landing-social-icons": "./src/landing-social-icons.tsx",
-    "./landing-scroll": "./src/landing-scroll.tsx"
+    "./landing-scroll": "./src/landing-scroll.tsx",
+    "./blog-post-story-card": "./src/blog-post-card.tsx",
+    "./more-blog-posts": "./src/more-blog-posts.tsx"
   },
   "scripts": {
     "build": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
