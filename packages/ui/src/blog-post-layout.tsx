@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
 import { Avatar } from "./avatar";
 import { MessageCircle, Heart } from "lucide-react";
@@ -32,6 +32,21 @@ export const BlogPostLayout = ({ children, frontmatter }: BlogLayoutProps) => {
   const handleLikeClick = () => {
     alert("Like icon clicked!");
   };
+
+  /*const [headings, setHeadings] = useState<{ id: string; text: string }[]>([]);
+
+  useEffect(() => {
+    const contentElement = document.querySelector(".blog-content");
+    if (!contentElement) return;
+
+    const headingElements = contentElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    const headingsArray = Array.from(headingElements).map((heading) => ({
+      id: heading.id,
+      text: heading.textContent || "",
+    }));
+
+    setHeadings(headingsArray);
+  }, []);*/
 
   return (
     <div className="ui-container ui-mx-auto ui-px-4 ui-sm:px-6 ui-lg:px-8">
@@ -85,6 +100,7 @@ export const BlogPostLayout = ({ children, frontmatter }: BlogLayoutProps) => {
           <hr className="ui-my-4" />
         </header>
         {children}
+        
       </div>
     </div>
   );
