@@ -155,6 +155,31 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA next_auth GRANT ALL ON TABL
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA next_auth GRANT ALL ON ROUTINES TO anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA next_auth GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
 
+CREATE TABLE IF NOT EXISTS next_auth.comments (
+    comment_id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    user_id uuid NOT NULL,
+    post_id text NOT NULL,
+    parent_comment_id uuid,
+    content text NOT NULL,
+    created_at timestamp with time zone DEFAULT now(),
+    CONSTRAINT comments_pkey PRIMARY KEY (comment_id),
+    CONSTRAINT fk_comments_users FOREIGN KEY (user_id)
+        REFERENCES next_auth.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT fk_comments_parent_comment FOREIGN KEY (parent_comment_id)
+        REFERENCES next_auth.comments (comment_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+);
+
+-- Optional: Index on post_id for faster queries
+CREATE INDEX idx_comments_post_id ON next_auth.comments (post_id);
+
+-- Grants (adjust permissions as needed)
+GRANT ALL ON TABLE next_auth.comments TO postgres;
+GRANT ALL ON TABLE next_auth.comments TO service_role;
+
 ```
 
 ```
