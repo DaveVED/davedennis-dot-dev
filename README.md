@@ -104,4 +104,55 @@ CREATE TABLE IF NOT EXISTS  next_auth.verification_tokens
  
 GRANT ALL ON TABLE next_auth.verification_tokens TO postgres;
 GRANT ALL ON TABLE next_auth.verification_tokens TO service_role;
+
+-- Create likes table with post_id as a slug (text)
+CREATE TABLE IF NOT EXISTS next_auth.likes (
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    user_id uuid NOT NULL,
+    post_id text NOT NULL,
+    created_at timestamp with time zone DEFAULT now(),
+    CONSTRAINT likes_pkey PRIMARY KEY (id),
+    CONSTRAINT user_post_unique UNIQUE (user_id, post_id),
+    CONSTRAINT likes_user_fkey FOREIGN KEY (user_id)
+        REFERENCES next_auth.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+);
+
+GRANT ALL ON TABLE next_auth.likes TO postgres;
+GRANT ALL ON TABLE next_auth.likes TO service_role;
+
+CREATE TABLE IF NOT EXISTS next_auth.likes (
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    user_id uuid NOT NULL,
+    post_id text NOT NULL,
+    created_at timestamp with time zone DEFAULT now(),
+    CONSTRAINT likes_pkey PRIMARY KEY (id),
+    CONSTRAINT user_post_unique UNIQUE (user_id, post_id),
+    CONSTRAINT likes_user_fkey FOREIGN KEY (user_id)
+        REFERENCES next_auth.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+);
+
+GRANT ALL ON TABLE next_auth.likes TO postgres;
+GRANT ALL ON TABLE next_auth.likes TO service_role;
+
+INSERT INTO next_auth.likes (user_id, post_id)
+VALUES ('cfd405f2-d697-4c98-b126-5ccbc9f7a0fb', 'deploy-go-cli-to-npm');
+
+SELECT COUNT(*) AS total_likes
+FROM next_auth.likes
+WHERE post_id = 'deploy-go-cli-to-npm';
+
+SELECT * FROM next_auth.likes;
+
+GRANT USAGE ON SCHEMA next_auth TO anon, authenticated, service_role;
+GRANT ALL ON ALL TABLES IN SCHEMA next_auth TO anon, authenticated, service_role;
+GRANT ALL ON ALL ROUTINES IN SCHEMA next_auth TO anon, authenticated, service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA next_auth TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA next_auth GRANT ALL ON TABLES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA next_auth GRANT ALL ON ROUTINES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA next_auth GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
+
 ```

@@ -1,12 +1,13 @@
-"use client";
-
+"use client"
 import { type ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
 import { Avatar } from "./avatar";
 import { MessageCircle, Heart } from "lucide-react";
 import cn from "classnames";
+import { SupabaseClient } from "@supabase/supabase-js";
+import { Session } from "next-auth";
 
-export interface FrontMatter {
+interface FrontMatter {
   title: string;
   author: string;
   date: string;
@@ -17,36 +18,78 @@ export interface FrontMatter {
 interface BlogLayoutProps {
   children: ReactNode;
   frontmatter: FrontMatter;
+  likes: number | null;
+  postId: string;
+  supabaseClient: SupabaseClient;
+  session: Session | null;
 }
 
-export const BlogPostLayout = ({ children, frontmatter }: BlogLayoutProps) => {
+export const BlogPostLayout = ({
+  children,
+  frontmatter,
+  likes,
+  postId,
+  supabaseClient,
+  session
+}: BlogLayoutProps) => {
   const { title, author, date, coverImage } = frontmatter;
-  const readTime = "5 min read"; // Hardcoded read time for now
-  const commentsCount = 5; // Hardcoded comments count for now
-  const likesCount = 5; // Hardcoded likes count for now
+  const readTime = "5 min read";
+  const commentsCount = 5;
+  const likesCount = likes ?? 0;
+
+  const [userLiked, setUserLiked] = useState(false);
+
+  useEffect(() => {
+    async function checkUserLiked() {
+      try {
+        const { data, error } = await supabaseClient
+          .from("next_auth.likes")
+          .select("id")
+          .eq("post_id", postId)
+          .eq("user_id", "cfd405f2-d697-4c98-b126-5ccbc9f7a0fb");
+
+        if (error) {
+          console.error("Error fetching like status:", error.message);
+          return;
+        }
+
+        setUserLiked(data?.length > 0);
+      } catch (error) {
+        console.error("Error checking user like status:");
+      }
+    }
+
+    checkUserLiked();
+  }, [supabaseClient, postId]);
 
   const handleCommentClick = () => {
     alert("Comment icon clicked!");
   };
 
-  const handleLikeClick = () => {
-    alert("Like icon clicked!");
-  };
+  /*const handleLikeClick = async () => {
+    if (userLiked) {
 
-  /*const [headings, setHeadings] = useState<{ id: string; text: string }[]>([]);
+      return;
+    }
 
-  useEffect(() => {
-    const contentElement = document.querySelector(".blog-content");
-    if (!contentElement) return;
+    try {
+      const { data, error } = await supabaseClient.from("next_auth.likes").insert([
+        {
+          user_id: supabaseClient.auth.user()?.id,
+          post_id: postId,
+        },
+      ]);
 
-    const headingElements = contentElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    const headingsArray = Array.from(headingElements).map((heading) => ({
-      id: heading.id,
-      text: heading.textContent || "",
-    }));
+      if (error) {
+        console.error("Error inserting like:", error.message);
+        return;
+      }
 
-    setHeadings(headingsArray);
-  }, []);*/
+      setUserLiked(true);
+    } catch (error) {
+      console.error("Error liking post:", error.message);
+    }
+  };*/
 
   return (
     <div className="ui-container ui-mx-auto ui-px-4 ui-sm:px-6 ui-lg:px-8">
@@ -91,8 +134,12 @@ export const BlogPostLayout = ({ children, frontmatter }: BlogLayoutProps) => {
             </div>
             <div className="ui-flex ui-items-center">
               <Heart
-                className="ui-w-5 ui-h-5 ui-mr-1 ui-cursor-pointer hover:ui-text-red-500"
-                onClick={handleLikeClick}
+                className={cn(
+                  "ui-w-5 ui-h-5 ui-mr-1 ui-cursor-pointer",
+                  { "hover:ui-text-red-500": !userLiked },
+                  { "ui-text-red-500": userLiked }
+                )}
+                /*onClick={handleLikeClick}*/
               />
               <span>{likesCount}</span>
             </div>

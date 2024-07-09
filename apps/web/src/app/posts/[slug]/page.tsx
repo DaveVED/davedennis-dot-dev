@@ -5,6 +5,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import { createClient } from "../../../lib/util";
 
 async function fetchGitMdxData(
   slug: string,
@@ -39,12 +40,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
     coverImage: mdxSource.frontmatter.coverImage as string,
     excerpt: mdxSource.frontmatter.excerpt as string,
   };
+  
+  const supabase = createClient();
+  const { error, count } = await supabase
+  .from('likes')
+  .select('id', { count: 'exact' })
+  .eq('post_id', slug);
 
+  if (error) return <div> Error... </div>
   return (
-    <BlogPostLayout frontmatter={seralizedFrontMatter}>
+    <BlogPostLayout frontmatter={seralizedFrontMatter} likes={count}>
       <article className="prose prose-lg prose-gray text-gray-800">
         <MDXWrapper mdxSource={mdxSource} />
       </article>
-    </BlogPostLayout>
+  </BlogPostLayout>
   );
 }
