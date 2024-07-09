@@ -1,8 +1,7 @@
 "use client";
 
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useState } from "react";
 import Image from "next/image";
-import { Avatar } from "./avatar";
 import { MessageCircle, Heart } from "lucide-react";
 import cn from "classnames";
 
@@ -18,36 +17,44 @@ interface BlogLayoutProps {
   children: ReactNode;
   frontmatter: FrontMatter;
   likes: number | null;
+  hasUserLiked: boolean | null;
+  postId: string;
 }
 
-export const BlogPostLayout = ({ children, frontmatter, likes }: BlogLayoutProps) => {
+export const BlogPostLayout = ({
+  children,
+  frontmatter,
+  likes,
+  hasUserLiked: initialHasUserLiked,
+  postId,
+}: BlogLayoutProps) => {
   const { title, author, date, coverImage } = frontmatter;
-  const readTime = "5 min read"; // Hardcoded read time for now
-  const commentsCount = 5; // Hardcoded comments count for now
-  const likesCount = likes ?? 0; // Hardcoded likes count for now
+  const readTime = "5 min read";
+  const commentsCount = 5;
+  const [likesCount, setLikesCount] = useState(likes ?? 0);
+  const [hasUserLiked, setHasUserLiked] = useState(
+    initialHasUserLiked ?? false,
+  );
 
   const handleCommentClick = () => {
     alert("Comment icon clicked!");
   };
 
-  const handleLikeClick = () => {
-    alert("Like icon clicked!");
+  const handleLikeClick = async () => {
+    const userId = "cfd405f2-d697-4c98-b126-5ccbc9f7a0fb"; // Replace with actual user ID
+    const action = hasUserLiked ? 'remove-like' : 'add-like';
+
+    await fetch('/api/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ action, userId, postId }),
+    });
+
+    setLikesCount(likesCount + (hasUserLiked ? -1 : 1));
+    setHasUserLiked(!hasUserLiked);
   };
-
-  /*const [headings, setHeadings] = useState<{ id: string; text: string }[]>([]);
-
-  useEffect(() => {
-    const contentElement = document.querySelector(".blog-content");
-    if (!contentElement) return;
-
-    const headingElements = contentElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    const headingsArray = Array.from(headingElements).map((heading) => ({
-      id: heading.id,
-      text: heading.textContent || "",
-    }));
-
-    setHeadings(headingsArray);
-  }, []);*/
 
   return (
     <div className="ui-container ui-mx-auto ui-px-4 ui-sm:px-6 ui-lg:px-8">
@@ -92,7 +99,12 @@ export const BlogPostLayout = ({ children, frontmatter, likes }: BlogLayoutProps
             </div>
             <div className="ui-flex ui-items-center">
               <Heart
-                className="ui-w-5 ui-h-5 ui-mr-1 ui-cursor-pointer hover:ui-text-red-500"
+                className={cn(
+                  "ui-w-5 ui-h-5 ui-mr-1 ui-cursor-pointer",
+                  hasUserLiked
+                    ? "ui-fill-red-500 hover:ui-stroke-white"
+                    : "hover:ui-fill-red-500",
+                )}
                 onClick={handleLikeClick}
               />
               <span>{likesCount}</span>

@@ -1,7 +1,12 @@
-import NextAuth, { NextAuthOptions, User, Session, DefaultSession } from "next-auth";
+import NextAuth, {
+  NextAuthOptions,
+  Session,
+  DefaultSession,
+  User,
+} from "next-auth";
 import Auth0Provider from "next-auth/providers/auth0";
 import type { JWT } from "next-auth/jwt";
-import { SupabaseAdapter } from "@next-auth/supabase-adapter"
+import { SupabaseAdapter } from "@next-auth/supabase-adapter";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -12,20 +17,15 @@ export const authOptions: NextAuthOptions = {
       issuer: process.env.AUTH0_ISSUER_BASE_URL,
     }),
   ],
-  // eslint-disable-next-line
   adapter: SupabaseAdapter({
     url: process.env.SUPABASE_URL!,
     secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
   }),
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: User }): Promise<JWT> {
-      if (user) {
-        token.id = user.id;
-      }
+    async jwt({ token }: { token: JWT }): Promise<JWT> {
       return token;
     },
-    async session({ session, token }: { session: Session; token: JWT }): Promise<Session> {
-      session.user.id = token.id ?? "";
+    async session({ session }: { session: Session }): Promise<Session> {
       return session;
     },
   },
@@ -36,15 +36,13 @@ const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
 
 declare module "next-auth" {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-    } & DefaultSession["user"];
+  interface Session {
+    accessToken?: string;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    id?: string;
+    accessToken?: string;
   }
 }
