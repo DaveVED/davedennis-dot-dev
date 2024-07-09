@@ -33,7 +33,7 @@ const nextConfig = {
   transpilePackages: ["@repo/ui", "next-mdx-remote"],
   pageExtensions: ["ts", "tsx", "md", "mdx", "js"],
   images: {
-    domains: ["github.com", "raw.githubusercontent.com"],
+    domains: ["github.com", "raw.githubusercontent.com", "s.gravatar.com"],
   },
   output: "standalone",
   /**
