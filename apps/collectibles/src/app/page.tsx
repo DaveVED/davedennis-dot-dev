@@ -1,7 +1,3 @@
 export default function LandingPage() {
-  return (
-    <main>
-      Hello World
-    </main>
-  );
+  return <main>Hello World</main>;
 }

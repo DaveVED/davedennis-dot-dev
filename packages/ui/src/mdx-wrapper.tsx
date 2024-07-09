@@ -6,9 +6,7 @@ interface MDXWrapperProps {
   mdxSource: MDXRemoteSerializeResult;
 }
 
-const components = {
-
-};
+const components = {};
 
 export const MDXWrapper = ({ mdxSource }: MDXWrapperProps) => {
   return <MDXRemote {...mdxSource} components={components} />;

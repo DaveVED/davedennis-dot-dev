@@ -57,7 +57,7 @@ export const BlogPostLayout = ({ children, frontmatter }: BlogLayoutProps) => {
             src={coverImage}
             alt={`Cover Image for ${title}`}
             className={cn(
-              "ui-w-full ui-max-w-[800px] ui-max-h-[200px] ui-rounded-md ui-object-cover"
+              "ui-w-full ui-max-w-[800px] ui-max-h-[200px] ui-rounded-md ui-object-cover",
             )}
             layout="responsive"
             width={1300}
@@ -100,7 +100,6 @@ export const BlogPostLayout = ({ children, frontmatter }: BlogLayoutProps) => {
           <hr className="ui-my-4" />
         </header>
         {children}
-        
       </div>
     </div>
   );
