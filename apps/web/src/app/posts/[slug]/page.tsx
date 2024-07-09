@@ -50,7 +50,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
       hasUserLiked={userLiked}
       postId={slug}
     >
-      {totalLikes}
       <article className="prose prose-lg prose-gray text-gray-800">
         <MDXWrapper mdxSource={mdxSource} />
       </article>

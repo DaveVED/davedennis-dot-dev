@@ -1,8 +1,8 @@
 "use client";
 
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useState, useEffect } from "react";
 import Image from "next/image";
-import { MessageCircle, Heart } from "lucide-react";
+import { MessageCircle, Heart, CornerDownRight } from "lucide-react";
 import cn from "classnames";
 
 export interface FrontMatter {
@@ -11,6 +11,16 @@ export interface FrontMatter {
   date: string;
   coverImage: string;
   excerpt: string;
+}
+
+interface Comment {
+  commentId: string;
+  userId: string;
+  postId: string;
+  parentCommentId?: string;
+  content: string;
+  createdAt: string;
+  userName: string;
 }
 
 interface BlogLayoutProps {
@@ -30,30 +40,146 @@ export const BlogPostLayout = ({
 }: BlogLayoutProps) => {
   const { title, author, date, coverImage } = frontmatter;
   const readTime = "5 min read";
-  const commentsCount = 5;
   const [likesCount, setLikesCount] = useState(likes ?? 0);
-  const [hasUserLiked, setHasUserLiked] = useState(
-    initialHasUserLiked ?? false,
-  );
+  const [hasUserLiked, setHasUserLiked] = useState(initialHasUserLiked ?? false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState("");
+  const [replyTo, setReplyTo] = useState<string | null>(null);
+  const [replyContent, setReplyContent] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isCommentSectionVisible, setIsCommentSectionVisible] = useState(true); // Always true to show comments section
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(`/api/comments?postId=${postId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch comments');
+        }
+        const data = await response.json();
+        console.log('Fetched comments:', data); // Debug statement
+        setComments(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+        setComments([]);
+      }
+    };
+    fetchComments();
+  }, [postId]);
 
   const handleCommentClick = () => {
-    alert("Comment icon clicked!");
+    setIsCommentSectionVisible(!isCommentSectionVisible);
   };
 
   const handleLikeClick = async () => {
     const userId = "cfd405f2-d697-4c98-b126-5ccbc9f7a0fb"; // Replace with actual user ID
-    const action = hasUserLiked ? 'remove-like' : 'add-like';
+    const action = hasUserLiked ? "remove-like" : "add-like";
 
-    await fetch('/api/posts', {
-      method: 'POST',
+    await fetch("/api/posts", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ action, userId, postId }),
     });
 
     setLikesCount(likesCount + (hasUserLiked ? -1 : 1));
     setHasUserLiked(!hasUserLiked);
+  };
+
+  const handleCommentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const userId = "cfd405f2-d697-4c98-b126-5ccbc9f7a0fb"; // Replace with actual user ID
+    const response = await fetch("/api/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, postId, content: newComment, parentCommentId: replyTo }),
+    });
+
+    const newCommentData = await response.json();
+    setComments([...comments, newCommentData]);
+    setNewComment("");
+    setReplyTo(null);
+    setIsLoading(false);
+  };
+
+  const handleReplySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const userId = "cfd405f2-d697-4c98-b126-5ccbc9f7a0fb"; // Replace with actual user ID
+    const response = await fetch("/api/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, postId, content: replyContent, parentCommentId: replyTo }),
+    });
+
+    const newReplyData = await response.json();
+    setComments([...comments, newReplyData]);
+    setReplyContent("");
+    setReplyTo(null);
+    setIsLoading(false);
+  };
+
+  const handleReplyClick = (commentId: string) => {
+    setReplyTo(commentId);
+  };
+
+  const renderComments = (comments: Comment[], parentCommentId: string | null = null) => {
+    return comments
+      .filter(comment => comment.parentCommentId === parentCommentId)
+      .map(comment => (
+        <div key={comment.commentId} className={parentCommentId ? "ui-ml-8 ui-mb-4" : "ui-mb-4"}>
+          <div className="ui-flex ui-items-center ui-mb-2">
+            <Image
+              src={"/dave.jpg"} // Replace with actual user image URL
+              className="ui-w-8 ui-h-8 ui-rounded-full ui-mr-2"
+              alt={comment.userName}
+              width={32}
+              height={32}
+            />
+            <div>
+              <div className="ui-font-bold">{comment.userName}</div>
+              <div className="ui-text-sm ui-text-gray-600">
+                {new Date(comment.createdAt).toLocaleDateString()}
+              </div>
+            </div>
+          </div>
+          <p>{comment.content}</p>
+          <button
+            onClick={() => handleReplyClick(comment.commentId)}
+            className="ui-flex ui-items-center ui-text-sm ui-text-blue-500 ui-hover:underline"
+          >
+            <CornerDownRight className="ui-w-4 ui-h-4 ui-mr-1" />
+            Reply
+          </button>
+          {replyTo === comment.commentId && (
+            <form onSubmit={handleReplySubmit} className="ui-mt-2 ui-ml-8">
+              <textarea
+                className="ui-w-full ui-p-2 ui-border ui-border-gray-300 ui-rounded-md ui-mb-2"
+                value={replyContent}
+                onChange={(e) => setReplyContent(e.target.value)}
+                placeholder="Add a reply..."
+                required
+              />
+              <button
+                type="submit"
+                className="ui-bg-blue-500 ui-text-white ui-py-2 ui-px-4 ui-rounded-md hover:ui-bg-blue-600"
+                disabled={isLoading}
+              >
+                {isLoading ? "Posting..." : "Post Reply"}
+              </button>
+            </form>
+          )}
+          {renderComments(comments, comment.commentId)}
+        </div>
+      ));
   };
 
   return (
@@ -67,9 +193,8 @@ export const BlogPostLayout = ({
             className={cn(
               "ui-w-full ui-max-w-[800px] ui-max-h-[200px] ui-rounded-md ui-object-cover",
             )}
-            layout="responsive"
-            width={1300}
-            height={630}
+            fill
+            sizes="100vw"
           />
           <div className="ui-flex ui-items-center ui-text-gray-600 ui-mt-2">
             <Image
@@ -95,7 +220,7 @@ export const BlogPostLayout = ({
                 className="ui-w-5 ui-h-5 ui-mr-1 ui-cursor-pointer hover:ui-text-blue-500"
                 onClick={handleCommentClick}
               />
-              <span>{commentsCount}</span>
+              <span>{comments.length}</span>
             </div>
             <div className="ui-flex ui-items-center">
               <Heart
@@ -113,6 +238,30 @@ export const BlogPostLayout = ({
           <hr className="ui-my-4" />
         </header>
         {children}
+        {isCommentSectionVisible && (
+          <section className="ui-mt-8">
+            <h2 className="ui-text-2xl ui-font-bold">Comments</h2>
+            <form onSubmit={handleCommentSubmit} className="ui-mt-4">
+              <textarea
+                className="ui-w-full ui-p-2 ui-border ui-border-gray-300 ui-rounded-md ui-mb-2"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder="Add a comment..."
+                required
+              />
+              <button
+                type="submit"
+                className="ui-bg-blue-500 ui-text-white ui-py-2 ui-px-4 ui-rounded-md hover:ui-bg-blue-600"
+                disabled={isLoading}
+              >
+                {isLoading ? "Posting..." : "Post Comment"}
+              </button>
+            </form>
+            <div className="ui-mt-6">
+              {renderComments(comments)}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
