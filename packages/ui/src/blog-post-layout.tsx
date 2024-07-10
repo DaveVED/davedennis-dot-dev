@@ -187,15 +187,17 @@ export const BlogPostLayout = ({
       <div className="ui-max-w-2xl ui-mx-auto ui-py-8">
         <header className="ui-mb-8">
           <h1 className="ui-text-3xl ui-font-bold ui-mt-4">{title}</h1>
-          <Image
-            src={coverImage}
-            alt={`Cover Image for ${title}`}
-            className={cn(
-              "ui-w-full ui-max-w-[800px] ui-max-h-[200px] ui-rounded-md ui-object-cover",
-            )}
-            fill
-            sizes="100vw"
-          />
+          <div className="ui-w-full ui-flex ui-justify-center ui-my-4">
+            <Image
+              src={coverImage}
+              alt={`Cover Image for ${title}`}
+              className={cn(
+                "ui-w-full ui-max-w-[800px] ui-max-h-[400px] ui-rounded-md ui-object-cover",
+              )}
+              width={800}
+              height={400}
+            />
+          </div>
           <div className="ui-flex ui-items-center ui-text-gray-600 ui-mt-2">
             <Image
               src={"/dave.jpg"}

@@ -3,7 +3,7 @@ import "../../styles/globals.css";
 import "@repo/ui/styles.css";
 import { Navbar } from "@repo/ui/navbar";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "../lib/auth";
 
 export const metadata: Metadata = {
   title: "Dave Dennis",
