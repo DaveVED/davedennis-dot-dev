@@ -44,6 +44,7 @@ COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/we
 COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
 # Set environment variables
+ARG NEXTAUTH_URL
 ARG NEXTAUTH_SECRET
 ARG AUTH0_CLIENT_ID
 ARG AUTH0_CLIENT_SECRET
@@ -54,6 +55,7 @@ ARG NEXT_PUBLIC_SUPABASE_URL
 ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
 ARG DATABASE_URL
 
+ENV NEXTAUTH_URL=${NEXTAUTH_URL}
 ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
 ENV AUTH0_CLIENT_ID=${AUTH0_CLIENT_ID}
 ENV AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET}

@@ -29,6 +29,7 @@ interface BlogLayoutProps {
   likes: number | null;
   hasUserLiked: boolean | null;
   postId: string;
+  userLoggedIn: boolean; // New prop to determine if user is logged in
 }
 
 export const BlogPostLayout = ({
@@ -37,6 +38,7 @@ export const BlogPostLayout = ({
   likes,
   hasUserLiked: initialHasUserLiked,
   postId,
+  userLoggedIn, // Use this prop to determine if user is logged in
 }: BlogLayoutProps) => {
   const { title, author, date, coverImage } = frontmatter;
   const readTime = "5 min read";
@@ -192,7 +194,8 @@ export const BlogPostLayout = ({
               src={coverImage}
               alt={`Cover Image for ${title}`}
               className={cn(
-                "ui-w-full ui-max-w-[800px] ui-max-h-[400px] ui-rounded-md ui-object-cover",
+                "ui-w-full ui-max-w-[800px] ui-rounded-md ui-object-cover",
+                "ui-max-h-[400px] sm:ui-max-h-[300px] md:ui-max-h-[400px]"
               )}
               width={800}
               height={400}
@@ -243,22 +246,26 @@ export const BlogPostLayout = ({
         {isCommentSectionVisible && (
           <section className="ui-mt-8">
             <h2 className="ui-text-2xl ui-font-bold">Comments</h2>
-            <form onSubmit={handleCommentSubmit} className="ui-mt-4">
-              <textarea
-                className="ui-w-full ui-p-2 ui-border ui-border-gray-300 ui-rounded-md ui-mb-2"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Add a comment..."
-                required
-              />
-              <button
-                type="submit"
-                className="ui-bg-blue-500 ui-text-white ui-py-2 ui-px-4 ui-rounded-md hover:ui-bg-blue-600"
-                disabled={isLoading}
-              >
-                {isLoading ? "Posting..." : "Post Comment"}
-              </button>
-            </form>
+            {userLoggedIn ? (
+              <form onSubmit={handleCommentSubmit} className="ui-mt-4">
+                <textarea
+                  className="ui-w-full ui-p-2 ui-border ui-border-gray-300 ui-rounded-md ui-mb-2"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="Add a comment..."
+                  required
+                />
+                <button
+                  type="submit"
+                  className="ui-bg-blue-500 ui-text-white ui-py-2 ui-px-4 ui-rounded-md hover:ui-bg-blue-600"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Posting..." : "Post Comment"}
+                </button>
+              </form>
+            ) : (
+              <p className="ui-text-gray-600 ui-mt-4">You must be logged in to comment.</p>
+            )}
             <div className="ui-mt-6">
               {renderComments(comments)}
             </div>
