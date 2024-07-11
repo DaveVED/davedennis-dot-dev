@@ -88,3 +88,8 @@ export async function addComment(userId: string, postId: string, content: string
     throw error;
   }
 }
+
+export async function getUserByEmail(email: string): Promise<any> {
+  const result = await db.select().from(usersTable).where(eq(usersTable.email, email));
+  return result[0];
+}

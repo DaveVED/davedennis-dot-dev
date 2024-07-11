@@ -5,7 +5,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-import { getPostsTotalLikes, hasUserLikedPost } from "../../../db/queries";
+import { getPostsTotalLikes, getUserByEmail, hasUserLikedPost } from "../../../db/queries";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../lib/auth";
 
@@ -43,11 +43,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
     excerpt: mdxSource.frontmatter.excerpt as string,
   };
 
-  const totalLikes = await getPostsTotalLikes(slug);
-  const userLiked = await hasUserLikedPost("cfd405f2-d697-4c98-b126-5ccbc9f7a0fb", slug);
-
   const session = await getServerSession(authOptions);
   const userLoggedIn = !!session;
+  let user = undefined;
+  if (session) {
+    user = await getUserByEmail(session.user!.email!)
+  }
+  const totalLikes = await getPostsTotalLikes(slug);
+  let userLiked = false;
+  if (user) {
+    userLiked = await hasUserLikedPost(user.id, slug);
+  }
+
 
   return (
     <BlogPostLayout 
@@ -56,7 +63,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
       hasUserLiked={userLiked}
       postId={slug}
       userLoggedIn={userLoggedIn}
+      userId={user.id}
+      userProfilePicutre={user.image ?? ""}
     >
+      {`TEST ${JSON.stringify(user)}`}
       <article className="prose prose-lg prose-gray text-gray-800">
         <MDXWrapper mdxSource={mdxSource} />
       </article>

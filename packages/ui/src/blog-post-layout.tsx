@@ -30,6 +30,8 @@ interface BlogLayoutProps {
   hasUserLiked: boolean | null;
   postId: string;
   userLoggedIn: boolean; // New prop to determine if user is logged in
+  userId: string | undefined;
+  userProfilePicutre: string;
 }
 
 export const BlogPostLayout = ({
@@ -39,6 +41,8 @@ export const BlogPostLayout = ({
   hasUserLiked: initialHasUserLiked,
   postId,
   userLoggedIn, // Use this prop to determine if user is logged in
+  userId,
+  userProfilePicutre
 }: BlogLayoutProps) => {
   const { title, author, date, coverImage } = frontmatter;
   const readTime = "5 min read";
@@ -74,59 +78,63 @@ export const BlogPostLayout = ({
   };
 
   const handleLikeClick = async () => {
-    const userId = "cfd405f2-d697-4c98-b126-5ccbc9f7a0fb"; // Replace with actual user ID
-    const action = hasUserLiked ? "remove-like" : "add-like";
+    if (userId) {
+      const action = hasUserLiked ? "remove-like" : "add-like";
 
-    await fetch("/api/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ action, userId, postId }),
-    });
-
-    setLikesCount(likesCount + (hasUserLiked ? -1 : 1));
-    setHasUserLiked(!hasUserLiked);
+      await fetch("/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action, userId, postId }),
+      });
+  
+      setLikesCount(likesCount + (hasUserLiked ? -1 : 1));
+      setHasUserLiked(!hasUserLiked);
+    }
   };
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    const userId = "cfd405f2-d697-4c98-b126-5ccbc9f7a0fb"; // Replace with actual user ID
-    const response = await fetch("/api/comments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, postId, content: newComment, parentCommentId: replyTo }),
-    });
-
-    const newCommentData = await response.json();
-    setComments([...comments, newCommentData]);
-    setNewComment("");
-    setReplyTo(null);
-    setIsLoading(false);
+    if (userId) {
+      e.preventDefault();
+      setIsLoading(true);
+  
+      const response = await fetch("/api/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, postId, content: newComment, parentCommentId: replyTo }),
+      });
+  
+      const newCommentData = await response.json();
+      setComments([...comments, newCommentData]);
+      setNewComment("");
+      setReplyTo(null);
+      setIsLoading(false);
+    }
   };
 
   const handleReplySubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+    if (userId) {
+      e.preventDefault();
+      setIsLoading(true);
+  
+      const response = await fetch("/api/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, postId, content: replyContent, parentCommentId: replyTo }),
+      });
+  
+      const newReplyData = await response.json();
+      setComments([...comments, newReplyData]);
+      setReplyContent("");
+      setReplyTo(null);
+      setIsLoading(false);
+    }
 
-    const userId = "cfd405f2-d697-4c98-b126-5ccbc9f7a0fb"; // Replace with actual user ID
-    const response = await fetch("/api/comments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, postId, content: replyContent, parentCommentId: replyTo }),
-    });
-
-    const newReplyData = await response.json();
-    setComments([...comments, newReplyData]);
-    setReplyContent("");
-    setReplyTo(null);
-    setIsLoading(false);
   };
 
   const handleReplyClick = (commentId: string) => {
@@ -140,14 +148,14 @@ export const BlogPostLayout = ({
         <div key={comment.commentId} className={parentCommentId ? "ui-ml-8 ui-mb-4" : "ui-mb-4"}>
           <div className="ui-flex ui-items-center ui-mb-2">
             <Image
-              src={"/dave.jpg"} // Replace with actual user image URL
+              src={userProfilePicutre} // Replace with actual user image URL
               className="ui-w-8 ui-h-8 ui-rounded-full ui-mr-2"
               alt={comment.userName}
               width={32}
               height={32}
             />
             <div>
-              <div className="ui-font-bold">{comment.userName}</div>
+              <div className="ui-font-bold">{userId}</div>
               <div className="ui-text-sm ui-text-gray-600">
                 {new Date(comment.createdAt).toLocaleDateString()}
               </div>
