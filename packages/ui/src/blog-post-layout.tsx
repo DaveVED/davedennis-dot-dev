@@ -146,6 +146,7 @@ export const BlogPostLayout = ({
       .filter(comment => comment.parentCommentId === parentCommentId)
       .map(comment => (
         <div key={comment.commentId} className={parentCommentId ? "ui-ml-8 ui-mb-4" : "ui-mb-4"}>
+          
           <div className="ui-flex ui-items-center ui-mb-2">
             <Image
               src={userProfilePicutre} // Replace with actual user image URL
@@ -155,9 +156,9 @@ export const BlogPostLayout = ({
               height={32}
             />
             <div>
-              <div className="ui-font-bold">{userId}</div>
+              <div className="ui-font-bold">{comment.userId}</div>
               <div className="ui-text-sm ui-text-gray-600">
-                {new Date(comment.createdAt).toLocaleDateString()}
+                {new Date(comment.userId).toLocaleDateString()}
               </div>
             </div>
           </div>
