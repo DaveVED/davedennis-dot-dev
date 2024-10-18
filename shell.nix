@@ -3,8 +3,7 @@
 pkgs.mkShell {
   buildInputs = [
     pkgs.nodejs-18_x
-    pkgs.awscli2
-    pkgs.pnpm
+    pkgs.bun
   ];
 }
 
