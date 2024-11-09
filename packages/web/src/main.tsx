@@ -3,9 +3,8 @@ import { createRoot } from "react-dom/client";
 import App from "./app/App.tsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Article from "./app/Article.tsx";
 import './index.css'; 
-import Blog from "./app/Blog.tsx";
+import { BlogPost } from "@/components/blog-post.tsx";
 
 export 
 const router = createBrowserRouter([
@@ -14,13 +13,9 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "blog/:contactId",
-    element: <Article />
-  },
-  {
-    path: "blog/",
-    element: <Blog />
-  },
+    path: "/blog/:postId",
+    element: <BlogPost />,
+  }
 ]);
 
 
