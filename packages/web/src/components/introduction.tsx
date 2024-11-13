@@ -16,7 +16,7 @@ const Introduction = ({ avatar = "/placeholder.svg?height=128&width=128" }) => {
         </h1>
         <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
           Cloud Development engineer at Goldman Sachs, tinkering with internal libraries, infrastructure, and services. 
-          Welcome to my digital playground where I share my tech adventures!
+          Welcome to my digital playground...
         </p>
       </div>
   )

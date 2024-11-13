@@ -4,6 +4,8 @@ import daveCaveAvatar from "../assets/dave-cave-avatar.png";
 import Introduction from "@/components/introduction";
 import Article from '@/components/article';
 import { parseTags } from '@/lib/utils';
+import { Icons } from "@/components/icons";
+import { Link } from 'react-router-dom';
 
 export default function App() {
   const introductionRef = useRef<HTMLElement>(null);
@@ -19,6 +21,13 @@ export default function App() {
       <main className="container mx-auto max-w-4xl px-4 py-6 lg:py-10">
         <section ref={introductionRef} className="container mx-auto px-4 py-6">
           <Introduction avatar={daveCaveAvatar} />
+          <div className="flex justify-center space-x-4 mt-6">
+            <SocialIcon href="https://twitter.com/DaveVED_" icon={Icons.twitter} label="Twitter" />
+            <SocialIcon href="https://linkedin.com/in/davedennis93" icon={Icons.linkedIn} label="LinkedIn" />
+            <SocialIcon href="https://github.com/DaveVED" icon={Icons.gitHub} label="GitHub" />
+            <SocialIcon href="https://twitch.tv/daveved" icon={Icons.twitch} label="Twitch" />
+            <SocialIcon href="https://instagram.com/davedennis" icon={Icons.instagram} label="Instagram" />
+          </div>
         </section>
 
         <section ref={latestBlogsRef} className="mb-16">
@@ -40,5 +49,31 @@ export default function App() {
         </section>
       </main>
     </div>
+  );
+}
+
+function SocialIcon({ href, icon: Icon, label }: { href: string; icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; label: string }) {
+  // Map social platforms to their colors
+  const colorMap: { [key: string]: string } = {
+    Twitter: "hover:text-gray-800",
+    LinkedIn: "hover:text-blue-700",
+    GitHub: "hover:text-gray-800",
+    Twitch: "hover:text-purple-600",
+    Instagram: "hover:text-pink-500",
+  };
+
+  // Default color if no mapping is found
+  const hoverColor = colorMap[label] || "hover:text-foreground";
+
+  return (
+    <Link
+      to={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`text-foreground/60 ${hoverColor} transition-colors`}
+    >
+      <Icon className="w-6 h-6" />
+      <span className="sr-only">{label}</span>
+    </Link>
   );
 }
