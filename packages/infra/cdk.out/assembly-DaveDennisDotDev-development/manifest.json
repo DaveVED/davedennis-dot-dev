@@ -1,0 +1,225 @@
+{
+  "version": "38.0.1",
+  "artifacts": {
+    "DaveDennisDotDevdevelopmentPersonalSite80B09DBC.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "DaveDennisDotDevdevelopmentPersonalSite80B09DBC.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "DaveDennisDotDevdevelopmentPersonalSite80B09DBC": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://381492130802/us-east-1",
+      "properties": {
+        "templateFile": "DaveDennisDotDevdevelopmentPersonalSite80B09DBC.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::381492130802:role/cdk-hnb659fds-deploy-role-381492130802-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::381492130802:role/cdk-hnb659fds-cfn-exec-role-381492130802-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-381492130802-us-east-1/dfa3c7804e46fc67a93cd819a2193300d04fdba0a2e04925c912c1c2cbceada0.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "DaveDennisDotDevdevelopmentPersonalSite80B09DBC.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::381492130802:role/cdk-hnb659fds-lookup-role-381492130802-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "DaveDennisDotDev-development-PersonalSite"
+      },
+      "dependencies": [
+        "DaveDennisDotDevdevelopmentPersonalSite80B09DBC.assets"
+      ],
+      "metadata": {
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/S3Bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteS3Bucket435057DB"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/S3Bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteS3BucketPolicy2A15393E"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/S3Bucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteS3BucketAutoDeleteObjectsCustomResource5ABA7BBB"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/OriginAccessControl/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteOriginAccessControlB710371F"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/OriginBucketPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteOriginBucketPolicy012BA359"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/CDN": [
+          {
+            "type": "aws:cdk:error",
+            "data": "Found zones: [] for dns:dev.davedennis.dev, privateZone:undefined, vpcId:undefined, but wanted exactly 1 zone",
+            "trace": [
+              "Annotations.addMessage (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addError (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1100)",
+              "Function.getValue (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/aws-cdk-lib/core/lib/context-provider.js:2:1314)",
+              "Function.fromLookup (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/aws-cdk-lib/aws-route53/lib/hosted-zone.js:1:2716)",
+              "Distribution2.lookupHostedZone (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/@dsqr/ace/dist/index.js:166:31)",
+              "new Distribution2 (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/@dsqr/ace/dist/index.js:105:28)",
+              "StaticSite.createDistribution (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/@dsqr/ace/dist/index.js:326:26)",
+              "new StaticSite (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/@dsqr/ace/dist/index.js:258:34)",
+              "new StaticSite (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/lib/stacks/static-site.ts:21:5)",
+              "/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/bin/infra.ts:24:3",
+              "App.addStage (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/@dsqr/ace/dist/index.js:73:5)",
+              "Object.<anonymous> (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/bin/infra.ts:23:5)",
+              "Module._compile (node:internal/modules/cjs/loader:1364:14)",
+              "Module.m._compile (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/ts-node/src/index.ts:1618:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1422:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/ts-node/src/index.ts:1621:12)",
+              "Module.load (node:internal/modules/cjs/loader:1203:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:1019:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)",
+              "phase4 (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/ts-node/src/bin.ts:649:14)",
+              "bootstrap (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/ts-node/src/bin.ts:95:10)",
+              "main (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/ts-node/src/bin.ts:55:10)",
+              "Object.<anonymous> (/home/daveved/workspace/github/davedennis-dot-dev/packages/infra/node_modules/ts-node/src/bin.ts:800:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1364:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1422:10)",
+              "Module.load (node:internal/modules/cjs/loader:1203:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:1019:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)",
+              "node:internal/main/run_main_module:28:49"
+            ]
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/CDN/Distribution/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteCDNDistributionBF000DAF"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/CDN/AliasRecord/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteCDNAliasRecord0DCEAE03"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/CDN/AliasRecordAAAA/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteCDNAliasRecordAAAADEA7A93F"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/DeployStaticSite/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteDeployStaticSiteAwsCliLayerF105FEE9"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/StaticSite/DeployStaticSite/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StaticSiteDeployStaticSiteCustomResource5FCB0A9C"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/AWSCloudFrontPartitionHostedZoneIdMap": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWSCloudFrontPartitionHostedZoneIdMap"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-singleton",
+            "data": true
+          },
+          {
+            "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+            "data": 2
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/DaveDennisDotDev-development/PersonalSite/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "DaveDennisDotDev-development/PersonalSite"
+    }
+  },
+  "missing": [
+    {
+      "key": "hosted-zone:account=381492130802:domainName=dev.davedennis.dev:region=us-east-1",
+      "provider": "hosted-zone",
+      "props": {
+        "dummyValue": {
+          "Id": "DUMMY",
+          "Name": "dev.davedennis.dev"
+        },
+        "account": "381492130802",
+        "region": "us-east-1",
+        "domainName": "dev.davedennis.dev",
+        "lookupRoleArn": "arn:${AWS::Partition}:iam::381492130802:role/cdk-hnb659fds-lookup-role-381492130802-us-east-1"
+      }
+    }
+  ]
+}
