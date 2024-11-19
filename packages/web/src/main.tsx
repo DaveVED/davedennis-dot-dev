@@ -6,14 +6,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { BlogPost } from "@/components/blog-post";
 import { Blog } from "@/components/blog";
 import RootLayout from "./components/root-layout";
+import { SidebarProvider } from "./components/ui/sidebar";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <RootLayout>
-        <App />
-      </RootLayout>
+      <SidebarProvider>
+        <RootLayout>
+          <App />
+        </RootLayout>
+      </SidebarProvider>
+
     ),
   },
   {

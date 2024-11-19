@@ -1,14 +1,20 @@
-import { MainNav } from "./main-nav";
+import React from "react";
+import { AppSidebar } from "./app-sidebar";
+import Navbar from "./navbar";
+import { SidebarProvider } from "./ui/sidebar";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = React.useState(false)
+
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="container z-40 bg-background">
-        <div className="flex h-20 items-center justify-between py-6">
-          <MainNav />
-        </div>
-      </header>
-      <main className="flex-1">{children}</main>
-    </div>
+    <SidebarProvider open={open} onOpenChange={setOpen}>
+      <AppSidebar />
+      <div className="flex min-h-screen flex-col">
+        <Navbar />
+        <main className="flex-1">
+          {children}
+        </main>
+      </div>
+    </SidebarProvider>
   )
 }

@@ -26,6 +26,7 @@ export const Blog = () => {
               {feed.map((post: FeedItem, index) => {
                 const updatedPost = {
                   ...post,
+                  pathPrefix: "/blog",
                   tags: parseTags(post.tags),
                 };
                 return <Article key={post.path} post={updatedPost} index={index} />;

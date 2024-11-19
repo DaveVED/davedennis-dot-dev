@@ -8,12 +8,20 @@ export interface ArticleProps {
     title: string
     summary?: string
     date?: string
+    pathPrefix?: string
     path: string
     tags?: string[]
   }
   index: number
 }
 
+const formatBlogPath = (path: string, pathPrefix?: string) => {
+  if (pathPrefix) {
+    return `${pathPrefix}/${formatPostSlug(path)}`;
+  }
+
+  return `blog/${formatPostSlug(path)}`;
+}
 const Article = ({ post, index }: ArticleProps) => {
   return (
     <article className="group relative flex flex-col space-y-2">
@@ -48,7 +56,7 @@ const Article = ({ post, index }: ArticleProps) => {
           {formatDate(post.date)}
         </p>
       )}
-      <Link to={`blog/${formatPostSlug(post.path)}`} className="absolute inset-0">
+      <Link to={formatBlogPath(post.path, post.pathPrefix)} className="absolute inset-0">
         <span className="sr-only">View article: {post.title}</span>
       </Link>
     </article>
