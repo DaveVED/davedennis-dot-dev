@@ -1,3 +1,1 @@
-# Web
-
-The web component.
+# Vite Web App
