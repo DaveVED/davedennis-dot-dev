@@ -1,0 +1,27 @@
+{
+    "name": "@dsqr/core",
+    "version": "0.0.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "license": "MIT",
+    "files": [
+      "dist/**"
+    ],
+    "publishConfig": {
+      "access": "public"
+    },
+    "scripts": {
+      "build": "tsup src/index.ts --format esm,cjs --dts",
+      "dev": "tsup src/index.ts --format esm,cjs --watch --dts"
+    },
+    "devDependencies": {
+      "@tsconfig/node20": "^20.1.4",
+      "@types/node": "^22.9.1",
+      "tsup": "^8.0.2",
+      "typescript": "^5.3.3"
+    }
+  }
+  

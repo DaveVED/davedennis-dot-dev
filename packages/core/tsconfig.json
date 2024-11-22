@@ -1,0 +1,19 @@
+{
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+      "declaration": true,
+      "module": "nodenext",
+      "target": "esnext",
+      "moduleResolution": "nodenext",
+      "outDir": "./dist",
+      "allowSyntheticDefaultImports": true,
+      "jsx": "react-jsx",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./*"]
+      }
+    },
+    "include": ["src"],
+    "exclude": ["test", "dist"]
+  }
+  
